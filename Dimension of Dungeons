@@ -1,0 +1,39 @@
+import random
+import time
+
+inventory = []
+gen_room_list = []
+
+dungeon_rooms = {
+    "the entrance" : {"adjacents" : ["1-0"], "enemies" : [], "bosses": [], "chests": []},
+    "1-0" : {"adjacents" : [], "enemies" : [], "bosses": [], "chests": []},
+}
+
+room_counter = 0
+dungeon_counter = 0
+
+while True:
+    dungeon_counter = dungeon_counter + 1
+    dungeon_counter_str = str(dungeon_counter)
+    while room_counter <= 5:
+        gen_room = dungeon_rooms["1-0"]
+        for j in range(random.randint(1,3)):
+            gen_room_save = gen_room
+            room_counter = room_counter + 1
+            room_counter_str = str(room_counter)
+            gen_room["adjacents"].append(dungeon_counter_str + "-" + room_counter_str)
+            gen_room_list.append(dungeon_counter_str + "-" + room_counter_str)
+            dungeon_rooms[dungeon_counter_str + "-" + room_counter_str] = gen_room_save
+        counter = 0
+        for i in gen_room_list:
+            
+            gen_index = gen_room_list[counter]
+            gen_index_key = dungeon_rooms[gen_index]
+            gen_index_key["adjacents"].append(gen_room_save)
+            gen_room = dungeon_rooms[random.choice(gen_room_list)]
+            counter = counter + 1
+             
+        print(dungeon_rooms)
+
+            
+        
